@@ -6,23 +6,19 @@ using namespace std;
 class Solution
 {
     public:
-    
-        int solve(int n){
-            
-            int a=n/2,b=n/3,c=n/4;
-            if(n==1)
-                return 1;
-            
-            else if(n==0)
-                return 0;
-            
-            else
-            return max(a,solve(n/2))+max(b,solve(n/3))+max(c,solve(n/4));  
-        }
-    
+        
         int maxSum(int n)
         {
-            return solve(n);
+            vector<int>dp(n+1);
+            dp[0]=0;
+            dp[1]=1;
+            
+            for(int i=2;i<=n;i++){
+                dp[i]=max(i/2,dp[i/2])+max(i/3,dp[i/3])+max(i/4,dp[i/4]);
+            }
+            
+            return dp[n];
+
         }
 };
 
