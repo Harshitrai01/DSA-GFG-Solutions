@@ -7,31 +7,23 @@ using namespace std;
 class Solution{
 public:
     
-    void solve(string ip, string op, vector<string> &ans){
-        if(ip.length()==0){
-            ans.push_back(op);
+    void solve(string s, string curr, int i, vector<string> &ans){
+        if(i==s.length()){
+            ans.push_back(curr);
             return;
         }
-        string op1=op;
-        string op2=op;
-        
-        op1.push_back(' ');
-        op1.push_back(ip[0]);
-        op2.push_back(ip[0]);
-        
-        ip.erase(ip.begin()+0);
-        solve(ip,op1,ans);
-        solve(ip,op2,ans);
+        solve(s,curr+' '+s[i],i+1,ans);
+        solve(s,curr+s[i],i+1,ans);
+        return;
     }
 
-    vector<string> permutation(string S){
+    vector<string> permutation(string s){
         vector<string>ans;
-        
-        string op="";
-        op.push_back(S[0]);
-        S.erase(S.begin()+0);
-        solve(S,op,ans);
-        
+        int n=s.length();
+        string curr="";
+        curr.push_back(s[0]);
+        int i=1;
+        solve(s,curr,i,ans);
         return ans;
     }
 };
