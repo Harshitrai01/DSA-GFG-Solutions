@@ -9,37 +9,19 @@ using namespace std;
 class Solution{
 public:	
 	// calculate the maximum sum with out adjacent
-	int solve(vector<int>&dp,int arr[], int n){
-	    if(dp[n]!=-1)
-	        return dp[n];
-	        
-	    else{
-	        
-            if(n==0)
-                dp[n]=0;
-                
-            else if(n==1)
-                dp[n]=arr[n-1];
-                
-            else if(n==2)
-                dp[n]=max(arr[n-1],arr[n-2]);
-                
-            else{
-                // Includeing last element and calling for remaining elements
-                int include=solve(dp,arr,n-2)+arr[n-1];
-                
-                // Excludeing last element
-                int exclude=solve(dp,arr,n-1);
-                
-                dp[n]=max(include,exclude);
-            }
+	int findMaxSum(int *arr, int n) {
+	    int dp[n+1];
+	    dp[0]=0;
+	    dp[1]=arr[0];
+	    if(n>1)
+	    dp[2]=max(arr[0],arr[1]);
+	    for(int i=3;i<=n;i++){
+	        int include=arr[i-1]+dp[i-2];
+	        int exclude=dp[i-1];
+	        dp[i]=max(include,exclude);
 	    }
 	    return dp[n];
-	}
-	
-	int findMaxSum(int *arr, int n) {
-	    vector<int>dp(n+1,-1);
-	    return solve(dp,arr,n);
+	    
 	}
 };
 
