@@ -18,7 +18,7 @@ public:
         if(i<0 or j<0 or i>=m or j>=n)
             return false;
             
-        if(s==word.size() or (word.size()==1 and s==0))
+        if(s==word.size() or word.size()==1)
             return true;
         
         if(board[i][j]==word[s] and !vis[i][j]){
@@ -34,33 +34,35 @@ public:
             
         return false;
     }
-
     
-    bool check_this(string s,vector<vector<char> >& board){
+        bool check_this(string s,vector<vector<char>>& board){
         int m=board.size();
         int n=board[0].size();
         for(int i=0;i<board.size();i++){
             for(int j=0;j<board[0].size();j++){
                 if(s[0]==board[i][j]){
-                    vector<vector<int>> visited(board.size(), vector<int> (board[0].size(),0));
+                    vector<vector<int>>visited(board.size(), vector<int> (board[0].size(),0));
                     if(solve(board,s,visited,m,n,0,i,j)){
                         return true;
                     }
-                    // return false;
                 }
             }
         }
         return false;
     }
+
+    
     
 	vector<string> wordBoggle(vector<vector<char> >& board, vector<string>& dictionary) {
-	    vector<string> ans;
-	    for(int i=0;i<dictionary.size();i++){
-	        if(check_this(dictionary[i],board)){
+	    int m=board.size();
+	    int n=board[0].size();
+	    vector<string>ans;
+        for(int i=0;i<dictionary.size();i++){
+            if(check_this(dictionary[i],board)){
 	            ans.push_back(dictionary[i]);
 	        }
-	    }
-	  return ans;
+        }
+	    return ans;
 	}
 };
 
