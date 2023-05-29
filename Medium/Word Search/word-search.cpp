@@ -7,37 +7,33 @@ class Solution {
 public:
     int d_row[4]={-1,1,0,0};
     int d_col[4]={0,0,-1,1};
-    bool solve(vector<vector<char>>& board,string word,int i, int j,int s,int m, int n,
-    vector<vector<bool>>&vis){
+    bool dfs(vector<vector<char>>& board, string word, vector<vector<int>>vis, int i, int j, int s){
+        int n=board.size();
+        int m=board[0].size();
+        vis[i][j]=1;
         
-        if(i<0 or j<0 or i>=m or j>=n)
-            return false;
-            
-        if(s==word.size())
+        if(s==word.size() or word.size()==1)
             return true;
-            
-        if(board[i][j]==word[s] and !vis[i][j]){
-            vis[i][j]=true;
-            for(int k=0;k<4;k++){
-                int n_row=i+d_row[k];
-                int n_col=j+d_col[k];
-                if(solve(board,word,n_row,n_col,s+1,m,n,vis))
-                    return true;
-            }
-            vis[i][j]=false;
+        for(int k=0;k<4;k++){
+                int nr=i+d_row[k];
+                int nc=j+d_col[k];
+                if(nr<n and nr>=0 and nc<m and nc>=0 and board[nr][nc]==word[s+1] and !vis[nr][nc]){
+                    if(s+2==word.size()) return true;
+                    if(dfs(board,word,vis,nr,nc,s+1))
+                        return true;
+                }
         }
-            
         return false;
     }
 
     bool isWordExist(vector<vector<char>>& board, string word) {
-        int m=board.size();
-        int n=board[0].size();
-        vector<vector<bool>>vis(m,vector<bool>(n,false));
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
+        int n=board.size();
+        int m=board[0].size();
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
                 if(board[i][j]==word[0]){
-                    if(solve(board,word,i,j,0,m,n,vis))
+                    if(dfs(board,word,vis,i,j,0))
                         return true;
                 }
             }
