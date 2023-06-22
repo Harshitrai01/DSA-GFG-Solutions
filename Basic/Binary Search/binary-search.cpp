@@ -10,7 +10,7 @@ using namespace std;
 
 class Solution {
   public:
-        int binarysearch(int arr[], int n, int k){
+    int binarysearch(int arr[], int n, int k) {
         int l=0,h=n-1;
         while(l<=h){
             int m=(l+h)/2;
