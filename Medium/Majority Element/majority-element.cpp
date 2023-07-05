@@ -13,8 +13,8 @@ class Solution{
      // Function to find majority element in the array
     // a: input array
     // size: size of input array
-int majorityElement(int arr[], int size)
-{
+    int majorityElement(int arr[], int size)
+    {
         
     int res=0,count=1;
     for(int i=1;i<size;i++){
@@ -39,8 +39,8 @@ int majorityElement(int arr[], int size)
             return -1;
             
             return arr[res];
-            
-}
+        
+    }
 };
 
 //{ Driver Code Starts.
